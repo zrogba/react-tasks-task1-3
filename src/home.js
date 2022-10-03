@@ -1,6 +1,7 @@
 import React from "react";
 import {  Link } from 'react-router-dom';
- 
+import Navbar from './navbar';
+import './home.css';
 const Home = () => {
 
 
@@ -9,7 +10,8 @@ const Home = () => {
     return (
 		
 		<>
-			<div className="container">
+		<Navbar/>
+			<div>
 			
 			<Link to="/Register"className="dropdown-item" >
 					 Sign up</Link>

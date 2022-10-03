@@ -1,0 +1,12 @@
+
+.navbar {
+ 
+  display: flex;
+  background-color: grey;
+ 
+}
+ul {
+    display: flex;
+    list-style: none;
+    justify-content: space-around;
+}
