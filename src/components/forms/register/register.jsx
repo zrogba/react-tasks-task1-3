@@ -2,7 +2,7 @@ import React from "react";
 import './register.css';
 import { Link } from 'react-router-dom';
 import useForm from "../../../hooks/useForm";
-import { db } from "../../../firebase";
+import { db } from "../../../firebase/firebase";
 import validate from "../../../validations";
 import { useId } from 'react';
 
