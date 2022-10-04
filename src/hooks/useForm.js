@@ -1,6 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect} from "react";
 import validate from "../validations";
 import { useNavigate } from "react-router-dom";
+import '../assets/styles/home.css';
+
+
 
 const useForm = () => {
     const [values, setValues] = useState({
@@ -11,14 +14,15 @@ const useForm = () => {
         email: "",
         password: "",
         confirmPassword: "",
-    });
-
-
+    })
+    
+ 
     const navigate = useNavigate();
     //10.set the usestate for errors
     const [errors, setErrors] = useState({});
     //11.set the usestate for correct data input
     const [dataCorrect, setDataCorrect] = useState(false);
+    
 
     //2.call method se to send data via input 
     //to the e.target event handler /run tests in browser console
@@ -34,26 +38,27 @@ const useForm = () => {
     }
 
     //6. call the handlesubmit e.preventDefault method to implement submit
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors(validate(values));
         setDataCorrect(true);
 
-    };
-
+    }
+    
     useEffect(() => {
 
-        if (Object.keys(errors).length === 0 && dataCorrect) {
+        if (Object.keys(errors).length === 0 && dataCorrect ) {
 
             navigate("/FormSuccess", {replace: true})
-
+            
         }
 
-    }, [errors, dataCorrect, navigate]);
+    }, [errors, dataCorrect, navigate]) ;
 
 
 
-    return { handleChange, handleSubmit, errors, values }
+    return { handleChange, handleSubmit, errors, values}
 };
+
 
 export default useForm;

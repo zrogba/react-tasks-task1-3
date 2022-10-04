@@ -2,7 +2,7 @@
 //import PropTypes from 'prop-types';
 import React from "react";
 //import {  Link } from 'react-router-dom';
-import './home.css';
+import '../assets/styles/home.css';
 
 function Navbar() {
     return (

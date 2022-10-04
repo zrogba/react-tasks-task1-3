@@ -1,16 +1,20 @@
 import React from "react";
-import './register.css';
+import '../assets/styles/register.css';
 import { Link } from 'react-router-dom';
-import useForm from "../../../hooks/useForm";
-import { db } from "../../../firebase/firebase";
-import validate from "../../../validations";
+import useForm from "../hooks/useForm";
+import { db } from "../firebase/firebase";
+import validate from "../validations";
 import { useId } from 'react';
 
+
+
 const Register = ({ submitForm }) => {
-
 	//useForm hook component
-	const { handleChange, handleSubmit, values, errors } = useForm(submitForm, validate);
+	const { handleChange, handleSubmit, values, errors} = useForm(submitForm, validate);
 
+
+
+	
 	//Firebase
 	db.collection("users")
 		.add({id: useId(),
@@ -23,13 +27,16 @@ const Register = ({ submitForm }) => {
 
 	/////********************************** */
 	const id = useId();
+
+
 	return (
 		<>
 			<div className="container">
 				<div className="card" >
 					<h2>Create an account</h2>
 					<h4><Link to="/Login">or Login</Link></h4>
-					<form action="" onSubmit={handleSubmit} id={` ${id}`}>
+					
+					<form action="" onSubmit={ handleSubmit}>
 						<div className="form-group">
 							<label htmlFor={`${id}-firstname`} >First Name</label>
 							<input type="text" autoComplete="off" className="form-control" id={`${id}-firstname`}

@@ -2,7 +2,7 @@ import React from "react";
 import {  Link } from 'react-router-dom';
 
  
-import useForm from "../../../hooks/useForm";
+import useForm from "../hooks/useForm";
 //1.create constant login
 const Forgot = () => {
 	//3.import usestate snippet and create array of data
