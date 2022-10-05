@@ -5,12 +5,14 @@ import useForm from "../hooks/useForm";
 import { db } from "../firebase/firebase";
 import validate from "../validations";
 import { useId } from 'react';
+//import useAuth from "../hooks/useAuth";
 
 
 
 const Register = ({ submitForm }) => {
 	//useForm hook component
 	const { handleChange, handleSubmit, values, errors} = useForm(submitForm, validate);
+	//const { onSubmit, signUp} = useAuth();
 
 
 
@@ -27,16 +29,18 @@ const Register = ({ submitForm }) => {
 
 	/////********************************** */
 	const id = useId();
-
+	
 
 	return (
 		<>
 			<div className="container">
+			<h2><Link to="/Home"className="dropdown-item" >
+					 Home</Link></h2>
 				<div className="card" >
 					<h2>Create an account</h2>
 					<h4><Link to="/Login">or Login</Link></h4>
 					
-					<form action="" onSubmit={ handleSubmit}>
+					<form action="" onSubmit={handleSubmit}>
 						<div className="form-group">
 							<label htmlFor={`${id}-firstname`} >First Name</label>
 							<input type="text" autoComplete="off" className="form-control" id={`${id}-firstname`}
@@ -60,7 +64,7 @@ const Register = ({ submitForm }) => {
 						</div>
 						<div className="form-group">
 							<label htmlFor={`${id}-email`}>Email address</label>
-							<input type="text" autoComplete="off" className="form-control" id={`${id}-email`}
+							<input type={"email"} autoComplete="off" className="form-control" id={`${id}-email`}
 								aria-describedby="emailHelp" placeholder="Enter email" value={values.email}
 								name="email" onChange={handleChange} />
 							{errors.email && <p className="error">{errors.email}</p>}
@@ -69,7 +73,7 @@ const Register = ({ submitForm }) => {
 						<div className="form-group row">
 							<label htmlFor="password" className="col-sm-2 col-form-label">Password</label>
 
-							<input type="password" autoComplete="off" className="form-control" id="password"
+							<input type={"password"} autoComplete="off" className="form-control" id="password"
 								value={values.password} placeholder="Password" name="password" onChange={handleChange} />
 							{errors.password && <p className="error">{errors.password}</p>}
 						</div>
