@@ -8,18 +8,20 @@ const Form = () => {
     //if form is correct 
     const [dataCorrect, setDataCorrect] = useState(false);
 
-    const submitForm = () => {
+    function submitForm () {
         setDataCorrect(true);
-        submitForm('');
-    };
+        
+    }
     //pass props SubmitForm from form to register etc
     return (
+        <>
         <div>
             
             {!dataCorrect ? <Register submitForm= 
-            {submitForm} /> : <FormSuccess />}
+            {submitForm} /> : (<FormSuccess />)}
                
         </div>
+        </>
     );
 };
 export default Form;

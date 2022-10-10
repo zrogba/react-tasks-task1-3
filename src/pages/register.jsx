@@ -2,34 +2,45 @@ import React from "react";
 import '../assets/styles/register.css';
 import { Link } from 'react-router-dom';
 import useForm from "../hooks/useForm";
-import { db } from "../firebase/firebase";
+import { collection, addDoc } from "firebase/firestore"; 
+import { db } from "../firebase/firebase"; 
 import validate from "../validations";
 import { useId } from 'react';
-//import useAuth from "../hooks/useAuth";
 
 
-
-const Register = ({ submitForm }) => {
+const Register = ({submitForm}) => {
 	//useForm hook component
-	const { handleChange, handleSubmit, values, errors} = useForm(submitForm, validate);
+	const {  handleChange, handleSubmit, values, errors} = useForm( validate);
 	//const { onSubmit, signUp} = useAuth();
+	const id = useId();
 
-
-
-	
-	//Firebase
-	db.collection("users")
-		.add({id: useId(),
-			firstname: values.firstname,
-			lastname: values.lastname,
-			phone: values.phone,
-			email: values.email,
-			password: values.password,
+	//const auth = getAuth();
+	try {
+		const docRef = addDoc(collection(db, "users"), {
+		id:id,
+		firstname: values.firstname,
+		lastname: values.lastname,
+		phone: values.phone,
+		email: values.email,
+		password: values.password,
 		});
+		console.log( docRef.id);
+	  } catch (e) {
+		console.error( e);
+	  }
+
+	/*db.doc("users")
+	.add({id: useId(),
+		firstname: values.firstname,
+		lastname: values.lastname,
+		phone: values.phone,
+		email: values.email,
+		password: values.password,
+	});*/
+//	//Firebase
 
 	/////********************************** */
-	const id = useId();
-	
+
 
 	return (
 		<>
@@ -40,7 +51,7 @@ const Register = ({ submitForm }) => {
 					<h2>Create an account</h2>
 					<h4><Link to="/Login">or Login</Link></h4>
 					
-					<form action="" onSubmit={handleSubmit}>
+					<form action="" onSubmit={handleSubmit}>   
 						<div className="form-group">
 							<label htmlFor={`${id}-firstname`} >First Name</label>
 							<input type="text" autoComplete="off" className="form-control" id={`${id}-firstname`}

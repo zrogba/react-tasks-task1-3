@@ -12,7 +12,7 @@ const Forgot = () => {
 		
 		<>
 			<div className="container">
-			<div className="card" >
+			<div className="card" > 
 			<h2>Forgot password</h2>
 				<form action="" onSubmit={handleSubmit}>
                 <div className="form-group">
