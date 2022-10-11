@@ -2,56 +2,45 @@ import React from "react";
 import '../assets/styles/register.css';
 import { Link } from 'react-router-dom';
 import useForm from "../hooks/useForm";
-import { collection, addDoc } from "firebase/firestore"; 
-import { db } from "../firebase/firebase"; 
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../firebase/firebase";
 import validate from "../validations";
 import { useId } from 'react';
+//import {auth} from "../firebase/firebase";
 
 
-const Register = ({submitForm}) => {
-	//useForm hook component
-	const {  handleChange, handleSubmit, values, errors} = useForm( validate);
-	//const { onSubmit, signUp} = useAuth();
+const Register = ({ submitForm }) => {
+	//useForm hook component 
+	const { handleChange, handleSubmit, values, errors } = useForm(validate);
+
 	const id = useId();
-
-	//const auth = getAuth();
+	
+	
+	//Firebase
 	try {
 		const docRef = addDoc(collection(db, "users"), {
-		id:id,
-		firstname: values.firstname,
-		lastname: values.lastname,
-		phone: values.phone,
-		email: values.email,
-		password: values.password,
+			id: id,
+			firstname: values.firstname,
+			lastname: values.lastname,
+			phone: values.phone,
+			email: values.email,
+			password: values.password,
 		});
-		console.log( docRef.id);
-	  } catch (e) {
-		console.error( e);
-	  }
-
-	/*db.doc("users")
-	.add({id: useId(),
-		firstname: values.firstname,
-		lastname: values.lastname,
-		phone: values.phone,
-		email: values.email,
-		password: values.password,
-	});*/
-//	//Firebase
-
-	/////********************************** */
-
+		console.log(docRef.id);
+	} catch (e) {
+		console.error(e);
+	}
 
 	return (
 		<>
 			<div className="container">
-			<h2><Link to="/Home"className="dropdown-item" >
-					 Home</Link></h2>
+				<h2><Link to="/Home" className="dropdown-item" >
+					Home</Link></h2>
 				<div className="card" >
 					<h2>Create an account</h2>
 					<h4><Link to="/Login">or Login</Link></h4>
-					
-					<form action="" onSubmit={handleSubmit}>   
+
+					<form action="" onSubmit={handleSubmit}>
 						<div className="form-group">
 							<label htmlFor={`${id}-firstname`} >First Name</label>
 							<input type="text" autoComplete="off" className="form-control" id={`${id}-firstname`}
