@@ -11,13 +11,14 @@ import { useId } from 'react';
 
 const Register = ({ submitForm }) => {
 	//useForm hook component 
-	const { handleChange, handleSubmit, values, errors } = useForm(validate);
+	const { handleChange, handleSubmit, handleRegister, values, errors } = useForm(validate);
 
 	const id = useId();
 	
 	
 	//Firebase
 	try {
+		
 		const docRef = addDoc(collection(db, "users"), {
 			id: id,
 			firstname: values.firstname,
@@ -30,7 +31,7 @@ const Register = ({ submitForm }) => {
 	} catch (e) {
 		console.error(e);
 	}
-
+//(e) => setEmail(e.target.value)
 	return (
 		<>
 			<div className="container">
@@ -40,7 +41,7 @@ const Register = ({ submitForm }) => {
 					<h2>Create an account</h2>
 					<h4><Link to="/Login">or Login</Link></h4>
 
-					<form action="" onSubmit={handleSubmit}>
+					<form action="" onSubmit={handleRegister}>
 						<div className="form-group">
 							<label htmlFor={`${id}-firstname`} >First Name</label>
 							<input type="text" autoComplete="off" className="form-control" id={`${id}-firstname`}

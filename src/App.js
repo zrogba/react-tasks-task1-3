@@ -1,3 +1,4 @@
+import { AuthProvider } from './context/authContext';
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Forgot from './pages/forgot';
@@ -9,6 +10,7 @@ import Home from './pages/home';
 
 function App() {
   return (
+    <AuthProvider>
     <BrowserRouter>
       <div className="App">
   
@@ -22,6 +24,7 @@ function App() {
         </Routes>
       </div>
     </BrowserRouter>
+    </AuthProvider>
   );
 }
 export default App;
