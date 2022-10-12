@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import validate from "../validations";
 import { useNavigate } from "react-router-dom";
 import '../assets/styles/home.css';
-import { registerUser} from "../firebase/firebase";
+//import { registerUser} from "../firebase/firebase";
 
 
 
@@ -25,20 +25,20 @@ const useForm = () => {
     //11.set the usestate for correct data input
     const [dataCorrect, setDataCorrect] = useState(false);
 
-    const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
+  //  const [email, setEmail] = useState('');
+	//const [password, setPassword] = useState('');
 
 
-    const handleChange = (e) => {
-        const name = e.target.name;
+    const handleChange = async (e) => {
+        e.preventDefault();
+         const name = e.target.name;
         const value = e.target.value;
         const id = e.target.id;
 
-        e.preventDefault();
-        console.log(id, value);
         setValues({ ...values, [name]: value })
-      
+     
 
+        console.log(id, value);
     }
 
     const handleSubmit = async (e) => {
@@ -48,22 +48,8 @@ const useForm = () => {
 
     }
 
-        const handleRegister = (e) => {
-            e.preventDefault();
-            registerUser(email, password)
-            .then((userCredential) => {
-                const user = userCredential.user
-                console.log(user);
-            })
-          .catch((error) => {
-            console.log(error);
-            setErrors(true);
-            setEmail('');
-        setPassword('');
-          });
-         
-      }
 
+      
     useEffect(
         () => {
 
@@ -77,7 +63,7 @@ const useForm = () => {
         },
         [errors, dataCorrect, navigate]);
 
-    return { handleChange, handleSubmit, errors, values, handleRegister}
+    return { handleChange, handleSubmit, errors, values}
     
 };
 

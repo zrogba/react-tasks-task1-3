@@ -6,16 +6,28 @@ import { collection, addDoc } from "firebase/firestore";
 import { db } from "../firebase/firebase";
 import validate from "../validations";
 import { useId } from 'react';
+import { useState } from "react";
+import { registerUser} from "../firebase/firebase";
 //import {auth} from "../firebase/firebase";
 
 
 const Register = ({ submitForm }) => {
 	//useForm hook component 
-	const { handleChange, handleSubmit, handleRegister, values, errors } = useForm(validate);
+	const { handleChange, handleSubmit, values, errors } = useForm(validate);
 
 	const id = useId();
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	//setEmail, setPassword
+	const handleEmail = event => {
+		setEmail(event.target.value);
+	  };
 	
-	
+	  const handlePassword = event => {
+		setPassword(event.target.value);
+	  };
+
+
 	//Firebase
 	try {
 		
@@ -28,10 +40,28 @@ const Register = ({ submitForm }) => {
 			password: values.password,
 		});
 		console.log(docRef.id);
-	} catch (e) {
-		console.error(e);
+	} catch (docRef) {
+		console.error(errors);
 	}
-//(e) => setEmail(e.target.value)
+
+	
+	const handleRegister = async (e) => {
+		e.preventDefault();
+		
+		
+		registerUser(email, password)
+		
+		.then((userCredential) => {
+			const user = userCredential.user
+			console.log(user);
+		})
+	  .catch((error) => {
+	
+		alert(error);
+	  });
+	 
+  }
+
 	return (
 		<>
 			<div className="container">
@@ -66,8 +96,8 @@ const Register = ({ submitForm }) => {
 						<div className="form-group">
 							<label htmlFor={`${id}-email`}>Email address</label>
 							<input type={"email"} autoComplete="off" className="form-control" id={`${id}-email`}
-								aria-describedby="emailHelp" placeholder="Enter email" value={values.email}
-								name="email" onChange={handleChange} />
+								aria-describedby="emailHelp" placeholder="Enter email" value={email}
+								name="email" onChange={handleEmail} />
 							{errors.email && <p className="error">{errors.email}</p>}
 						</div>
 
@@ -75,7 +105,7 @@ const Register = ({ submitForm }) => {
 							<label htmlFor="password" className="col-sm-2 col-form-label">Password</label>
 
 							<input type={"password"} autoComplete="off" className="form-control" id="password"
-								value={values.password} placeholder="Password" name="password" onChange={handleChange} />
+								value={password} placeholder="Password" name="password" onChange={handlePassword} />
 							{errors.password && <p className="error">{errors.password}</p>}
 						</div>
 

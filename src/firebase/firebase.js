@@ -17,10 +17,7 @@ const firebase = initializeApp(firebaseConfig);
 const db = getFirestore();
 export { db, firebase };
 
-
 export const registerUser = (email, password) => {
   const auth = getAuth();
   return createUserWithEmailAndPassword(auth, email, password);
 };
-
-
