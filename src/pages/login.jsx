@@ -11,11 +11,11 @@ import validate from "../validations";
 
 const Login = (submitForm) => {
 	//3.import usestate snippet and create array of data
-	const {values } = useForm(validate);
+	const { errors } = useForm(validate);
 
 	const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState(false);
+  
 
 
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ const Login = (submitForm) => {
   const handleEmail = (e)=> {
     setEmail(e.target.value);
 	e.preventDefault();
-        setErrors(validate(values));
+        
     
   };
 
@@ -32,12 +32,14 @@ const Login = (submitForm) => {
     setPassword(event.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+	e.preventDefault();
+	 
     loginUser(email, password)
       .then((userCredential) => {
 		
         alert('User signed in');
-        navigate('/home');
+        navigate("/home", { replace: true })
       })
       .catch((error) => {
         alert('Something went wrong!');
