@@ -9,6 +9,7 @@ import { useId } from 'react';
 import { useState } from "react";
 import { registerUser } from "../firebase/firebase";
 //import {auth} from "../firebase/firebase";
+import { useNavigate } from "react-router-dom";
 
 
 const Register = ({ submitForm }) => {
@@ -20,7 +21,7 @@ const Register = ({ submitForm }) => {
 	const [password, setPassword] = useState('');
 	//setEmail, setPassword
 
-
+	const navigate = useNavigate();
 
 	const handleEmail = event => {
 		setEmail(event.target.value);
@@ -42,7 +43,7 @@ const Register = ({ submitForm }) => {
 			email: values.email,
 			password: values.password,
 		});
-		console.log(docRef.user);
+		console.log(docRef.users);
 	} catch (docRef) {
 
 	}
@@ -51,20 +52,18 @@ const Register = ({ submitForm }) => {
 	const handleRegister = async (e) => {
 		e.preventDefault();
 
-
 		registerUser(email, password)
 
 			.then((userCredential) => {
-				const user = userCredential.user
-				console.log(user);
-		
-			})
-			.catch((errors) => {
-
-				alert(errors);
-			});
-
-	}
+         
+		navigate("/home", { replace: true })
+      })
+      .catch((error) => {
+        alert(error)
+        const errorCode = error.code;
+        console.log(errorCode);
+      });
+  }
 
 	return (
 		<>

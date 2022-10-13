@@ -4,31 +4,38 @@ import { useState } from "react";
 import {  Link } from 'react-router-dom';
 import useForm from "../hooks/useForm";
 import { useNavigate } from "react-router-dom";
+import validate from "../validations";
 //1.create constant login
+
 
 
 const Login = (submitForm) => {
 	//3.import usestate snippet and create array of data
-	const {  handleSubmit,  errors} = useForm(submitForm);
+	const {values } = useForm(validate);
 
 	const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState(false);
+
 
   const navigate = useNavigate();
+  
 
-  const handleEmail = event => {
-    setEmail(event.target.value);
+  const handleEmail = (e)=> {
+    setEmail(e.target.value);
+	e.preventDefault();
+        setErrors(validate(values));
+    
   };
 
   const handlePassword = event => {
     setPassword(event.target.value);
   };
 
-  const handleLogin = () => {
+  const handleSubmit = () => {
     loginUser(email, password)
       .then((userCredential) => {
-		const user = userCredential.user
-				console.log(user);
+		
         alert('User signed in');
         navigate('/home');
       })
@@ -44,9 +51,9 @@ const Login = (submitForm) => {
 			<div className="container">
 			<div className="card" >
 			<h2>Sign in</h2>
-				<form action="" onSubmit={ handleLogin}>
+				<form action="" onSubmit={ handleSubmit}>
 				<div className="form-group">
-							<label htmlFor={"email"}>Email address</label>
+							<label htmlFor="email">Email address</label>
 							<input type={"email"} autoComplete="off" className="form-control" id={"email"}
 								aria-describedby="emailHelp" placeholder="Enter email" value={email}
 								name="email" onChange={handleEmail} />

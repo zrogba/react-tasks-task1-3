@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import validate from "../validations";
 import { useNavigate } from "react-router-dom";
 import '../assets/styles/home.css';
-import { registerUser } from "../firebase/firebase";
-//import { registerUser} from "../firebase/firebase";
+import { registerUser} from "../firebase/firebase";
 
 
 
@@ -26,8 +25,8 @@ const useForm = () => {
     //11.set the usestate for correct data input
     const [dataCorrect, setDataCorrect] = useState(false);
 
-  //  const [email, setEmail] = useState('');
-	//const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
 
 
     const handleChange = async (e) => {
@@ -37,7 +36,8 @@ const useForm = () => {
         const id = e.target.id;
 
         setValues({ ...values, [name]: value })
-     
+        setEmail({ ...email, [name]: value })
+        setPassword({ ...password, [name]: value })
 
         console.log(id, value);
     }
@@ -49,16 +49,33 @@ const useForm = () => {
 
     }
 
+        const handleRegister = async (e) => {
+            e.preventDefault();
+            
+            const name = e.target.name;
+            const value = e.target.value;
+            setEmail({ ...email, [name]: value })
+            setPassword({ ...password, [name]: value })
+    
+            registerUser(email, password)
+            .then((userCredential) => {
+                const user = userCredential.user
+                console.log(user);
+            })
+          .catch((errors) => {
+          
+            setErrors('');
+            
+          });
+         
+      }
 
-      
     useEffect(
         () => {
 
-            if (Object.keys(errors).length === 0 && dataCorrect ){
-                if (registerUser ) {
-                    navigate("/FormSuccess", { replace: true })
-                }
-                
+            if (Object.keys(errors).length === 0 && dataCorrect) {
+
+                navigate("/FormSuccess", { replace: true })
 
             }
            
@@ -66,7 +83,7 @@ const useForm = () => {
         },
         [errors, dataCorrect, navigate]);
 
-    return { handleChange, handleSubmit, errors, values}
+    return { handleChange, handleSubmit, errors, values, handleRegister}
     
 };
 

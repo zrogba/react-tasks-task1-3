@@ -6,7 +6,7 @@ import Login from './pages/login';
 import Register from './pages/register';
 import FormSuccess from './pages/FormSuccess';
 import Home from './pages/home';
-
+import PrivateRoute from "./components/privateRoute";
 
 function App() {
   return (
@@ -16,7 +16,9 @@ function App() {
   
         <Routes>
         <Route exact path='/' element={< Home />}></Route>
-        <Route path='/home' element={< Home />} />
+        <Route path='/home' element={<PrivateRoute>
+              <Home />
+            </PrivateRoute>} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forgot" element={<Forgot />} />
