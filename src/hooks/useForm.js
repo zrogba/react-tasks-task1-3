@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import validate from "../validations";
 import { useNavigate } from "react-router-dom";
 import '../assets/styles/home.css';
+import { registerUser } from "../firebase/firebase";
 //import { registerUser} from "../firebase/firebase";
 
 
@@ -53,9 +54,11 @@ const useForm = () => {
     useEffect(
         () => {
 
-            if (Object.keys(errors).length === 0 && dataCorrect) {
-
-                navigate("/FormSuccess", { replace: true })
+            if (Object.keys(errors).length === 0 && dataCorrect ){
+                if (registerUser ) {
+                    navigate("/FormSuccess", { replace: true })
+                }
+                
 
             }
            

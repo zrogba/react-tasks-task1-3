@@ -2,7 +2,7 @@
 import 'firebase/compat/firestore';
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import {getAuth, createUserWithEmailAndPassword} from "firebase/auth";
+import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCuzVi7q1BSFt1pIEVGj5zb8SUcTYgytjQ",
@@ -20,4 +20,9 @@ export { db, firebase };
 export const registerUser = (email, password) => {
   const auth = getAuth();
   return createUserWithEmailAndPassword(auth, email, password);
+};
+
+export const loginUser = (email, password) => {
+  const auth = getAuth();
+  return signInWithEmailAndPassword(auth, email, password);
 };

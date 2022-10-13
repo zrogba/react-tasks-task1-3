@@ -7,7 +7,7 @@ import { db } from "../firebase/firebase";
 import validate from "../validations";
 import { useId } from 'react';
 import { useState } from "react";
-import { registerUser} from "../firebase/firebase";
+import { registerUser } from "../firebase/firebase";
 //import {auth} from "../firebase/firebase";
 
 
@@ -19,18 +19,21 @@ const Register = ({ submitForm }) => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	//setEmail, setPassword
+
+
+
 	const handleEmail = event => {
 		setEmail(event.target.value);
-	  };
-	
-	  const handlePassword = event => {
+	};
+
+	const handlePassword = event => {
 		setPassword(event.target.value);
-	  };
+	};
 
 
 	//Firebase
 	try {
-		
+
 		const docRef = addDoc(collection(db, "users"), {
 			id: id,
 			firstname: values.firstname,
@@ -39,28 +42,29 @@ const Register = ({ submitForm }) => {
 			email: values.email,
 			password: values.password,
 		});
-		console.log(docRef.id);
+		console.log(docRef.user);
 	} catch (docRef) {
-		console.error(errors);
+
 	}
 
-	
+
 	const handleRegister = async (e) => {
 		e.preventDefault();
-		
-		
+
+
 		registerUser(email, password)
+
+			.then((userCredential) => {
+				const user = userCredential.user
+				console.log(user);
 		
-		.then((userCredential) => {
-			const user = userCredential.user
-			console.log(user);
-		})
-	  .catch((error) => {
-	
-		alert(error);
-	  });
-	 
-  }
+			})
+			.catch((errors) => {
+
+				alert(errors);
+			});
+
+	}
 
 	return (
 		<>
