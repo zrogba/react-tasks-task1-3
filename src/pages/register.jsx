@@ -7,7 +7,7 @@ import { db } from "../firebase/firebase";
 import validate from "../validations";
 import { useId } from 'react';
 import { useState } from "react";
-import { registerUser } from "../firebase/firebase";
+import { registerUser, sendEmail } from "../firebase/firebase";
 //import {auth} from "../firebase/firebase";
 import { useNavigate } from "react-router-dom";
 
@@ -55,9 +55,13 @@ const Register = ({ submitForm }) => {
 		registerUser(email, password)
 
 			.then((userCredential) => {
-         
+				sendEmail();
 		navigate("/home", { replace: true })
+		const user = userCredential.user;
+		console.log(userCredential, user);
+		alert("Email sent"); 
       })
+	  
       .catch((error) => {
         alert(error)
         const errorCode = error.code;
