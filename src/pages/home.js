@@ -2,6 +2,7 @@ import React from "react";
 
 import Navbar from '../components/navbar';
 import '../assets/styles/home.css';
+import { logoutUser } from "../firebase/firebase";
 
 
 
@@ -14,12 +15,14 @@ const Home = () => {
 		
 		<>
 		<Navbar/>
-			<div>
-			
-			<h1> React Tasks</h1>
-			
-			
-			</div>
+		<h1>Welcome user!</h1>
+      <div>
+        This is a react form
+      </div>
+      <button onClick={logoutUser} className="btn">
+        Logout
+      </button>
+    
 		</>
 	)
 

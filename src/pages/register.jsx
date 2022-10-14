@@ -7,7 +7,7 @@ import { db } from "../firebase/firebase";
 import validate from "../validations";
 import { useId } from 'react';
 import { useState } from "react";
-import { registerUser, sendEmail } from "../firebase/firebase";
+import { registerUser, verifyEmail } from "../firebase/firebase";
 //import {auth} from "../firebase/firebase";
 import { useNavigate } from "react-router-dom";
 
@@ -16,11 +16,12 @@ const Register = ({ submitForm }) => {
 	//useForm hook component 
 	const { handleChange, handleSubmit, values, errors } = useForm(validate);
 
-	const id = useId();
+	
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	//setEmail, setPassword
-
+	
+	const id = useId();
+	
 	const navigate = useNavigate();
 
 	const handleEmail = event => {
@@ -55,11 +56,12 @@ const Register = ({ submitForm }) => {
 		registerUser(email, password)
 
 			.then((userCredential) => {
-				sendEmail();
-		navigate("/home", { replace: true })
+				
+		navigate("/login", { replace: true })
 		const user = userCredential.user;
 		console.log(userCredential, user);
-		alert("Email sent"); 
+		verifyEmail();
+		alert("Verification Email sent"); 
       })
 	  
       .catch((error) => {

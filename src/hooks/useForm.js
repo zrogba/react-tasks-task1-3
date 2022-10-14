@@ -75,7 +75,7 @@ const useForm = () => {
 
             if (Object.keys(errors).length === 0 && dataCorrect) {
 
-                navigate("/FormSuccess", { replace: true })
+                navigate("/", { replace: true })
 
             }
            
